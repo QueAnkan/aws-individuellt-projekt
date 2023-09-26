@@ -19,14 +19,17 @@ export const handler = async (event) => {
     const id = nanoid();
     
     const requestData = JSON.parse(event.body);
+
+    const cleanedRequestData = JSON.parse(JSON.stringify(requestData));
     
       // Skapa en PUTCommand för att Addera post med nytt id
       await dynamo.send(
         new PutCommand({
           TableName: tableName,
           Item: {
-            id: id,
-            animal: requestData.animal
+            ...cleanedRequestData,
+            id: id
+           
           },
         })
       );

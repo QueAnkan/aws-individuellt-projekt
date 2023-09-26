@@ -25,9 +25,8 @@ export const handler = async (event) => {
         new PutCommand({
           TableName: tableName,
           Item: {
-			id: requestData.id,
-            animal: requestData.animal
-          },
+            ...requestData,
+            id: requestData.id          },
         })
       );
 
